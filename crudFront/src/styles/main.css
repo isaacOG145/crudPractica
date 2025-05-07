@@ -1,0 +1,141 @@
+/* Agrega esto a tu archivo CSS */
+html {
+    font-size: 16px;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100vw;
+    background-color: #fafafa;
+}
+
+.header {
+    background-color: #097fbd;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.header h1 {
+    color: #fff;
+    margin: 0;
+    text-align: center;
+}
+
+
+.content {
+    padding: 2rem;
+    min-height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.form-container {
+    width: 50%;
+    margin: 1rem auto;
+}
+
+
+.table-container {
+    width: 85%;
+    margin: 1rem auto;
+}
+
+.table-container thead th {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.table-container td {
+    text-align: center;
+}
+
+.actions-container {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.add-button-container {
+    display: flex;
+    justify-content: flex-end;
+    width: 85%;
+    margin-bottom: 1rem;
+}
+
+.return-button-container {
+    display: flex;
+    justify-content: flex-start;
+    width: 95%;
+    margin-bottom: 1rem;
+}
+
+h1 {
+    color: #050000;
+    font-size: 2rem;
+    margin-bottom: 1.5rem;
+}
+
+h2 {
+    text-align: center;
+    color: #050000;
+    font-size: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.input-container {
+    margin-bottom: 1rem;
+    width: 100%;
+}
+
+.input-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 500;
+}
+
+.input-field {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.input-field.input-error {
+    border-color: #ff4444;
+}
+
+.error-message {
+    color: #ff4444;
+    font-size: 0.8rem;
+}
+
+.char-counter {
+    font-size: 0.8rem;
+    color: #666;
+    float: right;
+}
+
+.input-footer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.react-datepicker-wrapper {
+    width: 100%;
+}
+
+.react-datepicker__input-container input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.required-asterisk {
+    color: #ff4444;
+}
