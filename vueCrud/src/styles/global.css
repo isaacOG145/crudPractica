@@ -1,0 +1,85 @@
+html {
+    font-size: 16px;
+    overflow-x: hidden;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
+td{
+    text-align: center;
+}
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100vw;
+    background-color: #fafafa;
+    overflow-x: hidden;
+    /* Asegura que no haya scroll horizontal en el contenedor principal */
+}
+
+.action-container {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+}
+
+.bt {
+    padding: 8px 16px;
+    border-radius: 12px;
+    color: #fff;
+    text-align: center;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.bt-success {
+    background-color: #10a219;
+}
+
+.bt-success:hover {
+    background-color: #0e8a16;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.bt-success:active {
+    background-color: #0c7413;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.bt-warning {
+    background-color: #ffc107; /* Amarillo para warning */
+    color: #212529; /* Texto oscuro para mejor contraste */
+}
+
+.bt-warning:hover {
+    background-color: #e0a800;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.bt-warning:active {
+    background-color: #d39e00;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+.bt-danger {
+    background-color: #dc3545; /* Rojo para danger */
+}
+
+.bt-danger:hover {
+    background-color: #c82333;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.bt-danger:active {
+    background-color: #bd2130;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+}
