@@ -13,10 +13,6 @@ export const getAllUsers = async () => {
 
         const response = await api.get('/user/findAll');
 
-        if (response.data.type != "SUCCESS") {
-            throw new Error(response.data.message);
-        }
-
         return response.data.result;
 
     } catch (error) {

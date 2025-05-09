@@ -6,12 +6,15 @@
                 <h2>Lista de clientes</h2>
             </div>
             <div>
-                <button class="btn btn-success" @click="handleNewCustomer">Registrar nuevo</button>
+                <button class="btn btn-success" @click="handleNewCustomer">
+                    <i class="bi bi-person-plus"></i>
+                    Registrar nuevo
+                </button>
             </div>
         </div>
 
         <div class="col-8">
-            <table class="table">
+            <table class="table shadow-sm">
                 <thead class="table-dark">
                     <tr>
                         <td>ID</td>
@@ -29,8 +32,12 @@
                         <td>{{ formatDate(cliente.birthDate) }}</td>
                         <td>
                             <div class="action-container">
-                                <button class="bt  bt-warning">Editar</button>
-                                <button class="bt bt-danger">Eliminar</button>
+                                <button class="bt  bt-warning">
+                                    <i class="bi bi-pencil-square"></i>
+                                </button>
+                                <button class="bt bt-danger">
+                                    <i class="bi bi-trash3"></i>
+                                </button>
                             </div>
 
                         </td>
@@ -64,7 +71,7 @@ export default {
         try {
             this.clientes = await getAllUsers();
         } catch (error) {
-            console.error(error.message);
+            
             alert('Error al cargar clientes: ' + error.message);
         }
     }
