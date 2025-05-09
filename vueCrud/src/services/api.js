@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { resolveTypeElements } from 'vue/compiler-sfc';
 
 const api = axios.create({
     baseURL: 'http://localhost:8080',
@@ -37,10 +38,14 @@ export const registerUser = async (userData) => {
 
 export const updateUser = async (userData) => {
     try {
-
         const response = await api.put('/user/updateUser', userData);
+        console.log(response);
 
-        if (response.data.type != "SUCCESS") {
+        if (response.data.type === "WARNING") {
+            return response.data;
+        }
+
+        if (response.data.type !== "SUCCESS") {
             throw new Error(response.data.message);
         }
 
@@ -49,6 +54,7 @@ export const updateUser = async (userData) => {
         throw new Error(error.response?.message || 'Error al actualizar al cliente');
     }
 }
+
 
 export const deleteUser = async (id) => {
     try {

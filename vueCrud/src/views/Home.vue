@@ -27,12 +27,12 @@
                 <tbody>
                     <tr v-for="cliente in clientes" :key="cliente.id">
                         <td>{{ cliente.id }}</td>
-                        <td>{{ cliente.name }} {{cliente.lastName}}</td>
+                        <td>{{ cliente.name }} {{ cliente.lastName }}</td>
                         <td>{{ cliente.curp }}</td>
                         <td>{{ formatDate(cliente.birthDate) }}</td>
                         <td>
                             <div class="action-container">
-                                <button class="bt  bt-warning">
+                                <button class="bt  bt-warning" @click="handleEditCustomer(cliente)">
                                     <i class="bi bi-pencil-square"></i>
                                 </button>
                                 <button class="bt bt-danger">
@@ -55,10 +55,24 @@ import { formatDate } from '../utils/DateUtils.js';
 
 export default {
     methods: {
-    formatDate,
-    handleNewCustomer() {
-    this.$router.push('/newCustomer');
-  } },
+        formatDate,
+        handleEditCustomer(cliente) {
+            this.$router.push({
+                path: '/updateCustomer',
+                query: {
+                    id: cliente.id,
+                    name: cliente.name,
+                    lastName: cliente.lastName,
+                    curp: cliente.curp,
+                    birthDate: cliente.birthDate
+                }
+            });
+        }
+        ,
+        handleNewCustomer() {
+            this.$router.push('/newCustomer');
+        }
+    },
     components: {
         Header
     },
@@ -71,7 +85,7 @@ export default {
         try {
             this.clientes = await getAllUsers();
         } catch (error) {
-            
+
             alert('Error al cargar clientes: ' + error.message);
         }
     }
