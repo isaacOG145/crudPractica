@@ -23,15 +23,17 @@ export const getAllUsers = async () => {
 
 export const registerUser = async (userData) => {
     try {
-
         const response = await api.post('/user/saveUser', userData);
-
-        if (response.data.type != "SUCCESS") {
-            throw new Error(response.data.message);
-        }
         return response.data;
-    } catch (error) {
-        throw new Error(error.response?.message || 'Error al registrar el cliente');
+    }catch (error) {
+        
+        if (error.response) {
+            throw new Error(error.response.data.message || 'Error al registrar el cliente');
+        } else if (error.request) {
+            throw new Error('No se recibió respuesta del servidor');
+        } else {
+            throw new Error('Error al configurar la petición');
+        }
     }
 
 }
@@ -40,18 +42,15 @@ export const updateUser = async (userData) => {
     try {
         const response = await api.put('/user/updateUser', userData);
         console.log(response);
-
-        if (response.data.type === "WARNING") {
-            return response.data;
-        }
-
-        if (response.data.type !== "SUCCESS") {
-            throw new Error(response.data.message);
-        }
-
         return response.data;
-    } catch (error) {
-        throw new Error(error.response?.message || 'Error al actualizar al cliente');
+    }catch (error) {   
+        if (error.response) {
+            throw new Error(error.response.data.message || 'Error al actualizar el cliente');
+        } else if (error.request) {
+            throw new Error('No se recibió respuesta del servidor');
+        } else {
+            throw new Error('Error al configurar la petición');
+        }
     }
 }
 
@@ -60,12 +59,9 @@ export const deleteUser = async (id) => {
     try {
         const response = await api.delete(`/user/deleteUser/${id}`);
 
-        if (response.data.type != "SUCCESS") {
-            throw new Error(response.data.message);
-        }
         return response.data;
     } catch (error) {
-        throw new Error(error.response?.message || 'Error al actualizar al cliente');
+        throw new Error(error.response?.message || 'Error al eliminar al cliente');
     }
 
 }

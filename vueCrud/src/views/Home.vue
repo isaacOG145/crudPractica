@@ -35,7 +35,7 @@
                                 <button class="bt  bt-warning" @click="handleEditCustomer(cliente)">
                                     <i class="bi bi-pencil-square"></i>
                                 </button>
-                                <button class="bt bt-danger">
+                                <button class="bt bt-danger" @click="deleteCustomer(cliente)">
                                     <i class="bi bi-trash3"></i>
                                 </button>
                             </div>
@@ -50,8 +50,9 @@
 
 <script>
 import Header from '../components/Header.vue';
-import { getAllUsers } from '../services/api.js';
+import { getAllUsers, deleteUser } from '../services/api.js';
 import { formatDate } from '../utils/DateUtils.js';
+import Swal from 'sweetalert2';
 
 export default {
     methods: {
@@ -67,10 +68,55 @@ export default {
                     birthDate: cliente.birthDate
                 }
             });
-        }
-        ,
+        },
         handleNewCustomer() {
             this.$router.push('/newCustomer');
+        },
+        async deleteCustomer(cliente) {
+            try {
+                const result = await Swal.fire({
+                    icon: 'question',
+                    title: 'Eliminar cliente',
+                    text: '¿Seguro que quieres eliminar este cliente?',
+                    showCancelButton: true,
+                    confirmButtonColor: "#10a219",
+                    cancelButtonColor: "#dc3545",
+                    confirmButtonText: "Si",
+                    cancelButtonText: "Cancelar"
+                });
+                
+                if (result.isConfirmed) {
+                    await deleteUser(cliente.id);
+                    
+                    await Swal.fire({
+                        icon: 'success',
+                        title: 'Cliente eliminado',
+                        text: 'El cliente ha sido eliminado correctamente',
+                        confirmButtonColor: "#10a219"
+                    });
+                    
+                    await this.loadCustomers();
+                }
+            } catch (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: error.message || 'No se pudo eliminar el cliente',
+                    confirmButtonColor: "#dc3545"
+                });
+            }
+        },
+        async loadCustomers() {
+            try {
+                this.clientes = await getAllUsers();
+            } catch (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error',
+                    text: 'Error al cargar clientes: ' + error.message,
+                    confirmButtonColor: "#dc3545"
+                });
+            }
         }
     },
     components: {
@@ -82,12 +128,7 @@ export default {
         };
     },
     async mounted() {
-        try {
-            this.clientes = await getAllUsers();
-        } catch (error) {
-
-            alert('Error al cargar clientes: ' + error.message);
-        }
+        await this.loadCustomers();
     }
 };
 </script>

@@ -51,7 +51,6 @@
                             </span>
                         </div>
 
-                        <!-- Campo Fecha de Nacimiento -->
                         <div class="form-floating mb-4">
                             <input type="date" id="birthDate" class="form-control" placeholder=" "
                                 v-model="form.birthDate" :class="{ 'is-invalid': errors.birthDate }" :max="maxDate" />
@@ -181,13 +180,18 @@ export default {
 
             const response = await registerUser(userData);
 
+            if(response.type !== "SUCCESS"){
+                throw new Error (error.message);
+            }
+
             await loadingAlert.close();
 
             Swal.fire({  // Cambiado this.$swal -> Swal
                 icon: 'success',
                 title: 'Éxito',
                 text: 'Cliente registrado correctamente',
-                confirmButtonText: 'Aceptar'
+                confirmButtonText: 'Aceptar',
+                confirmButtonColor: "#10a219"
             }).then(() => {
                 this.resetForm();
             });

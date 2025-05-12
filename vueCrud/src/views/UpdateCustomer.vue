@@ -23,7 +23,6 @@
                             <span v-if="errors.name" class="invalid-feedback">{{ errors.name }}</span>
                         </div>
 
-                        <!-- Campo Apellidos -->
                         <div class="form-floating mb-3">
                             <input type="text" id="lastName" class="form-control" placeholder=" "
                                 v-model="form.lastName" :class="{ 'is-invalid': errors.lastName }" maxlength="50" />
@@ -45,7 +44,6 @@
                             <span v-if="errors.curp" class="invalid-feedback">{{ errors.curp }}</span>
                         </div>
 
-                        <!-- Campo Fecha de Nacimiento -->
                         <div class="form-floating mb-4">
                             <input type="date" id="birthDate" class="form-control" placeholder=" "
                                 v-model="form.birthDate" :class="{ 'is-invalid': errors.birthDate }" :max="maxDate" />
@@ -210,7 +208,8 @@ export default {
                         icon: 'success',
                         title: 'Éxito',
                         text: 'Cliente actualizado correctamente',
-                        confirmButtonText: 'Aceptar'
+                        confirmButtonText: 'Aceptar',
+                        confirmButtonColor: "#10a219"
                     }).then(() => {
                         this.resetForm();
                         this.handleIndex(); // regresar a la lista
