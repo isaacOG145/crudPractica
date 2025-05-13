@@ -1,14 +1,19 @@
 <template>
     <div class="clientes-list-container">
-        <div class="d-flex justify-content-end align-items-center py-4 col-11">
-            
-            <div v-if="showNewButton">
-                <button class="bt bt-success" @click="handleNewCustomer">
-                    <i class="bi bi-person-plus"></i>
-                    Registrar nuevo
-                </button>
+        <div class="row justify-content-center">
+            <div class="d-flex justify-content-between py-4 col-10">
+                <div>
+                    <Search />
+                </div>
+                <div v-if="showNewButton">
+                    <button class="bt bt-success" @click="handleNewCustomer">
+                        <i class="bi bi-person-plus"></i>
+                        Registrar nuevo
+                    </button>
+                </div>
             </div>
         </div>
+
         <div class="row justify-content-center">
             <div class="col-10">
                 <table class="customer-table">
@@ -47,6 +52,7 @@
 </template>
 
 <script>
+import Search from '../components/Search.vue';
 import { getAllUsers, deleteUser } from '../services/api.js';
 import { formatDate } from '../utils/DateUtils.js';
 import Swal from 'sweetalert2';
@@ -62,6 +68,9 @@ export default {
             type: Boolean,
             default: true
         }
+    },
+    components: {
+        Search
     },
     methods: {
         formatDate,
@@ -95,6 +104,7 @@ export default {
                     });
 
                     this.$emit('customer-deleted');
+                    await this.loadCustomers();
                 }
             } catch (error) {
                 Swal.fire({
