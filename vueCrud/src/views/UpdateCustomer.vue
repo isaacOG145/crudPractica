@@ -12,7 +12,6 @@
                             <h2 class="card-title">Editar cliente</h2>
                         </div>
 
-                        <!-- Campo Nombre -->
                         <div class="form-floating mb-3">
                             <input type="text" id="name" class="form-control" placeholder=" " v-model="form.name"
                                 :class="{ 'is-invalid': errors.name }" maxlength="50" />
@@ -33,7 +32,6 @@
                             <span v-if="errors.lastName" class="invalid-feedback">{{ errors.lastName }}</span>
                         </div>
 
-                        <!-- Campo CURP -->
                         <div class="form-floating mb-3">
                             <input type="text" id="curp" class="form-control" placeholder=" " v-model="form.curp"
                                 :class="{ 'is-invalid': errors.curp }" @input="form.curp = form.curp.toUpperCase()" />

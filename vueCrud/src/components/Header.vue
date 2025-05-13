@@ -15,7 +15,7 @@ export default
 <style scoped>
 .my-header {
     width: 100%;
-    background-color: #095d97;
+    background-color:  #1c2833 ;
 }
 
 .header-text {
