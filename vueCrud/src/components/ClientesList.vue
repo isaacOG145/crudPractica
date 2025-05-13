@@ -3,7 +3,7 @@
         <div class="row justify-content-center">
             <div class="d-flex justify-content-between py-4 col-10">
                 <div>
-                    <Search />
+                    <Search @search='handleSearch' @clear-search="loadCustomers"/>
                 </div>
                 <div v-if="showNewButton">
                     <button class="bt bt-success" @click="handleNewCustomer">
@@ -27,6 +27,9 @@
                         </tr>
                     </thead>
                     <tbody>
+                        <tr v-if="clientes.length === 0">
+                            <td colspan="5" class="text-center py-4">No se encontraron clientes</td>
+                        </tr>
                         <tr v-for="cliente in clientes" :key="cliente.id">
                             <td>{{ cliente.id }}</td>
                             <td>{{ cliente.name }} {{ cliente.lastName }}</td>
@@ -47,13 +50,12 @@
                 </table>
             </div>
         </div>
-
     </div>
 </template>
 
 <script>
 import Search from '../components/Search.vue';
-import { getAllUsers, deleteUser } from '../services/api.js';
+import { getAllUsers, deleteUser, getUserById } from '../services/api.js';
 import { formatDate } from '../utils/DateUtils.js';
 import Swal from 'sweetalert2';
 
@@ -79,6 +81,45 @@ export default {
         },
         handleNewCustomer() {
             this.$emit('new-customer');
+        },
+        async handleSearch(id) { 
+            try {
+                if (!id) {
+                    await this.loadCustomers();
+                    return;
+                }
+                if (isNaN(id)) {
+                    Swal.fire({
+                        icon: 'warning',
+                        title: 'ID invalido',
+                        text: 'Por favor ingrese un id valido',
+                        confirmButtonColor: "#ffc107"
+                    });
+                    return;
+                }
+
+                const cliente = await getUserById(id);
+
+                if (cliente) {
+                    this.clientes = [cliente];
+                } else {
+                    Swal.fire({
+                        icon: 'info',
+                        title: 'No encontrado',
+                        text: 'No se encontró ningún cliente con ese ID',
+                        confirmButtonColor: "#17a2b8"
+                    });
+                }
+            }
+            catch (error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error en búsqueda',
+                    text: error.message || 'Ocurrió un error al buscar el cliente',
+                    confirmButtonColor: "#dc3545"
+                });
+                await this.loadCustomers();
+            }
         },
         async deleteCustomer(cliente) {
             try {

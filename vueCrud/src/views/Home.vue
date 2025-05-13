@@ -35,7 +35,6 @@ export default {
       });
     },
     handleCustomerDeleted() {
-      // Puedes agregar lógica adicional si es necesario
       console.log('Cliente eliminado, actualizando vista...');
     }
   }

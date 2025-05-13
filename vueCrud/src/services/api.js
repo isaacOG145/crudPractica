@@ -21,6 +21,16 @@ export const getAllUsers = async () => {
     }
 }
 
+export const getUserById = async (id) => {
+
+    try{
+        const response = await api.get(`/user/findById/${id}`);
+        return response.data.result;
+    }catch(error){
+        throw new Error(error.response?.message || 'No se encontro el cliente');
+    }
+}
+
 export const registerUser = async (userData) => {
     try {
         const response = await api.post('/user/saveUser', userData);
